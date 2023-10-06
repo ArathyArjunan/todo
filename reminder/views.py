@@ -58,4 +58,12 @@ class TodoCreateView(View):
         else:
             messages.error(request,"insertion failed")
             return render(request,"reminder/todo_add.html",{"form":form})
+        
+
+class TodoListView(View):
+    template_name="reminder/todo_list.html"
+    
+    def get(self,request,*args,**kwargs):
+        qs=Todos.objects.all()
+        return render(request,self.template_name,{"todos":qs})
 

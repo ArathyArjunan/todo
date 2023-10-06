@@ -1,5 +1,5 @@
 from django.urls import path 
-from reminder.views import SignUpView,SignInView,IndexView,TodoCreateView
+from reminder.views import SignUpView,SignInView,IndexView,TodoCreateView,TodoListView
 
 
 
@@ -9,6 +9,7 @@ urlpatterns=[
     path("signin/",SignInView.as_view(),name="signin"),
     path("index",IndexView.as_view(),name="index"),
     path("add/",TodoCreateView.as_view(),name="add-todo"),
+    path('all',TodoListView.as_view(),name="list-todo")
 
 
 ]
