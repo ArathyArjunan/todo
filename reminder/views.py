@@ -1,6 +1,6 @@
 from django.shortcuts import render,redirect
 from reminder.forms import RegistrationForm,LoginForm,TodoCreateForm
-from django.views.generic import View,TemplateView
+from django.views.generic import View,TemplateView,ListView,DetailView
 from django.contrib import messages
 from django.contrib.auth import authenticate,login,logout
 from reminder.models import Todos
@@ -60,10 +60,18 @@ class TodoCreateView(View):
             return render(request,"reminder/todo_add.html",{"form":form})
         
 
-class TodoListView(View):
+class TodoListView(ListView):
     template_name="reminder/todo_list.html"
-    
-    def get(self,request,*args,**kwargs):
-        qs=Todos.objects.all()
-        return render(request,self.template_name,{"todos":qs})
+    context_object_name="todos"
+    model=Todos
 
+class TodoDetailView(DetailView):
+    template_name="reminder/todo_detail.html"
+    context_object_name="todo"
+    model=Todos
+
+
+    
+    # def get(self,request,*args,**kwargs):
+    #     qs=Todos.objects.all()
+    #     return render(request,self.template_name,{"todos":qs})

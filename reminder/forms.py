@@ -25,3 +25,4 @@ class TodoCreateForm(forms.ModelForm):
         widgets={
             "title":forms.TextInput(attrs={"class":"form-control"})
         }
+

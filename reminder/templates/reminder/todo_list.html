@@ -32,10 +32,7 @@
                                 <td>{{todo.status}}</td>
                                 <td>{{todo.created_date}}</td>
                                <td class="px-2">
-                                <a href="{%url 'todo-detail' todo.id %}" class="ms-1"><i class="fa-regular fa-eye fa-shake text-info"></i></a>
-                                <a href="{% url 'todo-delete' todo.id %}" class="ms-1"><i class="fa-solid fa-trash text-danger"></i></a>
-                                <a href="{% url 'todo-change' todo.id %}" class="ms-1"><i class="fa-solid fa-pen-to-square text-warning"></i></a>
-
+                               
                             </td>
                         </tr>
                     {%endfor%}
