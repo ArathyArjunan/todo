@@ -32,8 +32,13 @@
                                 <td>{{todo.status}}</td>
                                 <td>{{todo.created_date}}</td>
                                <td class="px-2">
+                                <a href="{% url 'detail-todo' todo.id%}" class="me-3"><i class="fa-solid fa-circle-info"></i></a>
+                                <a href="{% url 'remove-todo' todo.id%}" class="me-3"><i class="fa-solid fa-trash" style="color: #e53206;"></i></a>
+                                <a href="{% url 'change-todo' todo.id%}" ><i class="fa-solid fa-pen-to-square" style="color: #1134e4;"></i></a>
+    
                                
                             </td>
+    
                         </tr>
                     {%endfor%}
 

@@ -26,3 +26,8 @@ class TodoCreateForm(forms.ModelForm):
             "title":forms.TextInput(attrs={"class":"form-control"})
         }
 
+class TodoChangeForm(forms.ModelForm):
+
+    class Meta:
+        model=Todos
+        fields=["title","status"]
