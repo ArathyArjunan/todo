@@ -48,7 +48,7 @@ class SignInView(View):
             if usr:
                 login(request,usr)
                 messages.success(request,"login success")
-                return redirect("add-todo")
+                return redirect("index")
             else:
                messages.error(request,"invalid credentials!!!!")
                return render(request,"signin.html",{"form":form})
@@ -57,6 +57,17 @@ class SignInView(View):
 
 class IndexView(TemplateView):
     template_name="index.html"
+    def get(self,request,*args,**kwargs):
+        form=TodoCreateForm()
+        qs=Todos.objects.filter(user=request.user)
+        return render(request,self.template_name,{"form":form,"todos":qs})
+    def post(self,request,*args,**kwargs):
+        form=TodoCreateForm(request.POST)
+        if form.is_valid():
+            Todos.objects.create(**form.cleaned_data,user=request.user)
+            messages.success(request,"Added success")
+            return redirect("index")
+
 
 @method_decorator(signin_required,name="dispatch")
 
@@ -116,7 +127,7 @@ class TodoUpdateView(UpdateView):
 def remove_todo(request,*args,**kwargs):
     id=kwargs.get("pk")
     Todos.objects.filter(id=id).delete()
-    return redirect("list-todo")
+    return redirect("index")
 
 
 @signin_required
