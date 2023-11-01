@@ -25,6 +25,8 @@ urlpatterns = [
    path('todos/<int:pk>',TodoDetailView.as_view(),name="todo-detail"),
    path('todos/<int:pk>/remove',TodoDeleteView.as_view(),name="todo-delete"),
    path('todos/<int:pk>/change',TodoUpdateView.as_view(),name="todo-change"),
-   path("",include("reminder.urls"))
+   path("",include("reminder.urls")),
+   path("api/",include("task_api.urls")),
+   path("api/reminder/",include("reminder_api.urls")),
 ]
 

@@ -57,16 +57,31 @@ class SignInView(View):
 
 class IndexView(TemplateView):
     template_name="index.html"
-    def get(self,request,*args,**kwargs):
-        form=TodoCreateForm()
-        qs=Todos.objects.filter(user=request.user)
-        return render(request,self.template_name,{"form":form,"todos":qs})
-    def post(self,request,*args,**kwargs):
-        form=TodoCreateForm(request.POST)
-        if form.is_valid():
-            Todos.objects.create(**form.cleaned_data,user=request.user)
-            messages.success(request,"Added success")
-            return redirect("index")
+    form_class=TodoCreateForm
+    context_object_name="todos"
+    success_url=reverse_lazy("index")
+    model=Todos
+  
+
+
+    def form_valid(self,form):
+        form.instance.user=self.request.user
+        return super().form_valid(form)
+    
+    def get_queryset(self):
+        qs=Todos.objects.filter(user=self.request.user)
+        return qs
+    
+    # def get(self,request,*args,**kwargs):
+    #     form=TodoCreateForm()
+    #     qs=Todos.objects.filter(user=request.user)
+    #     return render(request,self.template_name,{"form":form,"todos":qs})
+    # def post(self,request,*args,**kwargs):
+    #     form=TodoCreateForm(request.POST)
+    #     if form.is_valid():
+    #         Todos.objects.create(**form.cleaned_data,user=request.user)
+    #         messages.success(request,"Added success")
+    #         return redirect("index")
 
 
 @method_decorator(signin_required,name="dispatch")
